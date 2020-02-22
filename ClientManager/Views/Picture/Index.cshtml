@@ -1,0 +1,22 @@
+﻿@model ClientManager.Models.person
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>
+    @Html.DisplayFor(model => model.first_name)
+    @Html.DisplayFor(model => model.last_name)
+</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", new { id = Model.person_id })
+</p>
+
+<p>
+    Profile picture:
+    <img src="/Images/@Html.DisplayFor(modelItem => modelItem.picture.relative_path)" style="max-height:100px; max-width:100px" />
+</p>
+
+@Html.Partial("PictureAlbum", Model.pictures)
+@Html.ActionLink("Back to Client List", "index", "Home")

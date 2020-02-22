@@ -1,0 +1,972 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ClientsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="addresses">
+          <Key>
+            <PropertyRef Name="address_id" />
+          </Key>
+          <Property Name="address_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="person_id" Type="int" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="street_address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="city" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="province" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="zipcode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="country_code" Type="char" MaxLength="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="comment">
+          <Key>
+            <PropertyRef Name="comment_id" />
+          </Key>
+          <Property Name="comment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="picture_id" Type="int" Nullable="false" />
+          <Property Name="person_id" Type="int" Nullable="false" />
+          <Property Name="comment" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="timestamp" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="read" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="comment_like">
+          <Key>
+            <PropertyRef Name="comment_id" />
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="comment_id" Type="int" Nullable="false" />
+          <Property Name="person_id" Type="int" Nullable="false" />
+          <Property Name="timestamp" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="read" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="contacts">
+          <Key>
+            <PropertyRef Name="contact_id" />
+          </Key>
+          <Property Name="contact_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="person_id" Type="int" Nullable="false" />
+          <Property Name="type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="info" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="countries">
+          <Key>
+            <PropertyRef Name="country_code" />
+          </Key>
+          <Property Name="country_code" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="country_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="friendlink">
+          <Key>
+            <PropertyRef Name="requester" />
+            <PropertyRef Name="requested" />
+          </Key>
+          <Property Name="requester" Type="int" Nullable="false" />
+          <Property Name="requested" Type="int" Nullable="false" />
+          <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="timestamp" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="read" Type="bit" Nullable="false" />
+          <Property Name="approved" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="like">
+          <Key>
+            <PropertyRef Name="picture_id" />
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="picture_id" Type="int" Nullable="false" />
+          <Property Name="person_id" Type="int" Nullable="false" />
+          <Property Name="timestamp" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="read" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="message">
+          <Key>
+            <PropertyRef Name="message_id" />
+          </Key>
+          <Property Name="message_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sender" Type="int" Nullable="false" />
+          <Property Name="receiver" Type="int" Nullable="false" />
+          <Property Name="message" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="timestamp" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="read" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="persons">
+          <Key>
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="person_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="first_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="last_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="notes" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="gender" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="profile_pic" Type="int" />
+          <Property Name="privacy_setting" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pictures">
+          <Key>
+            <PropertyRef Name="picture_id" />
+          </Key>
+          <Property Name="picture_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="person_id" Type="int" Nullable="false" />
+          <Property Name="caption" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="relative_path" Type="nvarchar" MaxLength="1024" Nullable="false" />
+          <Property Name="time_info" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="location" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password_hash" Type="nvarchar" MaxLength="72" Nullable="false" />
+          <Property Name="secret" Type="nvarchar" MaxLength="16" />
+          <Property Name="person_id" Type="int" />
+        </EntityType>
+        <Association Name="FK_addresses_countries">
+          <End Role="countries" Type="Self.countries" Multiplicity="1" />
+          <End Role="addresses" Type="Self.addresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="countries">
+              <PropertyRef Name="country_code" />
+            </Principal>
+            <Dependent Role="addresses">
+              <PropertyRef Name="country_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_addresses_persons">
+          <End Role="persons" Type="Self.persons" Multiplicity="1" />
+          <End Role="addresses" Type="Self.addresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="addresses">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_comment_like_comment">
+          <End Role="comment" Type="Self.comment" Multiplicity="1" />
+          <End Role="comment_like" Type="Self.comment_like" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="comment">
+              <PropertyRef Name="comment_id" />
+            </Principal>
+            <Dependent Role="comment_like">
+              <PropertyRef Name="comment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_comment_like_persons">
+          <End Role="persons" Type="Self.persons" Multiplicity="1" />
+          <End Role="comment_like" Type="Self.comment_like" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="comment_like">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_comment_persons">
+          <End Role="persons" Type="Self.persons" Multiplicity="1" />
+          <End Role="comment" Type="Self.comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="comment">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_comment_pictures">
+          <End Role="pictures" Type="Self.pictures" Multiplicity="1" />
+          <End Role="comment" Type="Self.comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pictures">
+              <PropertyRef Name="picture_id" />
+            </Principal>
+            <Dependent Role="comment">
+              <PropertyRef Name="picture_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_contacts_persons">
+          <End Role="persons" Type="Self.persons" Multiplicity="1" />
+          <End Role="contacts" Type="Self.contacts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="contacts">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_friendlink_persons_requested">
+          <End Role="persons" Type="Self.persons" Multiplicity="1" />
+          <End Role="friendlink" Type="Self.friendlink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="friendlink">
+              <PropertyRef Name="requested" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_friendlink_persons_requester">
+          <End Role="persons" Type="Self.persons" Multiplicity="1" />
+          <End Role="friendlink" Type="Self.friendlink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="friendlink">
+              <PropertyRef Name="requester" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_like_persons">
+          <End Role="persons" Type="Self.persons" Multiplicity="1" />
+          <End Role="like" Type="Self.like" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="like">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_like_pictures">
+          <End Role="pictures" Type="Self.pictures" Multiplicity="1" />
+          <End Role="like" Type="Self.like" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pictures">
+              <PropertyRef Name="picture_id" />
+            </Principal>
+            <Dependent Role="like">
+              <PropertyRef Name="picture_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_message_persons_receiver">
+          <End Role="persons" Type="Self.persons" Multiplicity="1" />
+          <End Role="message" Type="Self.message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="message">
+              <PropertyRef Name="receiver" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_message_persons_sender">
+          <End Role="persons" Type="Self.persons" Multiplicity="1" />
+          <End Role="message" Type="Self.message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="message">
+              <PropertyRef Name="sender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_persons_pictures">
+          <End Role="pictures" Type="Self.pictures" Multiplicity="0..1" />
+          <End Role="persons" Type="Self.persons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pictures">
+              <PropertyRef Name="picture_id" />
+            </Principal>
+            <Dependent Role="persons">
+              <PropertyRef Name="profile_pic" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pictures_persons">
+          <End Role="persons" Type="Self.persons" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="pictures" Type="Self.pictures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="pictures">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_users_persons">
+          <End Role="persons" Type="Self.persons" Multiplicity="0..1" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ClientsModelStoreContainer">
+          <EntitySet Name="addresses" EntityType="Self.addresses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="comment" EntityType="Self.comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="comment_like" EntityType="Self.comment_like" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="contacts" EntityType="Self.contacts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="countries" EntityType="Self.countries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="friendlink" EntityType="Self.friendlink" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="like" EntityType="Self.like" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="message" EntityType="Self.message" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="persons" EntityType="Self.persons" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pictures" EntityType="Self.pictures" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_addresses_countries" Association="Self.FK_addresses_countries">
+            <End Role="countries" EntitySet="countries" />
+            <End Role="addresses" EntitySet="addresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_addresses_persons" Association="Self.FK_addresses_persons">
+            <End Role="persons" EntitySet="persons" />
+            <End Role="addresses" EntitySet="addresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_comment_like_comment" Association="Self.FK_comment_like_comment">
+            <End Role="comment" EntitySet="comment" />
+            <End Role="comment_like" EntitySet="comment_like" />
+          </AssociationSet>
+          <AssociationSet Name="FK_comment_like_persons" Association="Self.FK_comment_like_persons">
+            <End Role="persons" EntitySet="persons" />
+            <End Role="comment_like" EntitySet="comment_like" />
+          </AssociationSet>
+          <AssociationSet Name="FK_comment_persons" Association="Self.FK_comment_persons">
+            <End Role="persons" EntitySet="persons" />
+            <End Role="comment" EntitySet="comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_comment_pictures" Association="Self.FK_comment_pictures">
+            <End Role="pictures" EntitySet="pictures" />
+            <End Role="comment" EntitySet="comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_contacts_persons" Association="Self.FK_contacts_persons">
+            <End Role="persons" EntitySet="persons" />
+            <End Role="contacts" EntitySet="contacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_friendlink_persons_requested" Association="Self.FK_friendlink_persons_requested">
+            <End Role="persons" EntitySet="persons" />
+            <End Role="friendlink" EntitySet="friendlink" />
+          </AssociationSet>
+          <AssociationSet Name="FK_friendlink_persons_requester" Association="Self.FK_friendlink_persons_requester">
+            <End Role="persons" EntitySet="persons" />
+            <End Role="friendlink" EntitySet="friendlink" />
+          </AssociationSet>
+          <AssociationSet Name="FK_like_persons" Association="Self.FK_like_persons">
+            <End Role="persons" EntitySet="persons" />
+            <End Role="like" EntitySet="like" />
+          </AssociationSet>
+          <AssociationSet Name="FK_like_pictures" Association="Self.FK_like_pictures">
+            <End Role="pictures" EntitySet="pictures" />
+            <End Role="like" EntitySet="like" />
+          </AssociationSet>
+          <AssociationSet Name="FK_message_persons_receiver" Association="Self.FK_message_persons_receiver">
+            <End Role="persons" EntitySet="persons" />
+            <End Role="message" EntitySet="message" />
+          </AssociationSet>
+          <AssociationSet Name="FK_message_persons_sender" Association="Self.FK_message_persons_sender">
+            <End Role="persons" EntitySet="persons" />
+            <End Role="message" EntitySet="message" />
+          </AssociationSet>
+          <AssociationSet Name="FK_persons_pictures" Association="Self.FK_persons_pictures">
+            <End Role="pictures" EntitySet="pictures" />
+            <End Role="persons" EntitySet="persons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pictures_persons" Association="Self.FK_pictures_persons">
+            <End Role="persons" EntitySet="persons" />
+            <End Role="pictures" EntitySet="pictures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_users_persons" Association="Self.FK_users_persons">
+            <End Role="persons" EntitySet="persons" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ClientsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="address">
+          <Key>
+            <PropertyRef Name="address_id" />
+          </Key>
+          <Property Name="address_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="person_id" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="street_address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="province" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="zipcode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="country_code" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="country" Relationship="Self.FK_addresses_countries" FromRole="addresses" ToRole="countries" />
+          <NavigationProperty Name="person" Relationship="Self.FK_addresses_persons" FromRole="addresses" ToRole="persons" />
+        </EntityType>
+        <EntityType Name="comment">
+          <Key>
+            <PropertyRef Name="comment_id" />
+          </Key>
+          <Property Name="comment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="picture_id" Type="Int32" Nullable="false" />
+          <Property Name="person_id" Type="Int32" Nullable="false" />
+          <Property Name="comment1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="timestamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="read" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="comment_like" Relationship="Self.FK_comment_like_comment" FromRole="comment" ToRole="comment_like" />
+          <NavigationProperty Name="person" Relationship="Self.FK_comment_persons" FromRole="comment" ToRole="persons" />
+          <NavigationProperty Name="picture" Relationship="Self.FK_comment_pictures" FromRole="comment" ToRole="pictures" />
+        </EntityType>
+        <EntityType Name="comment_like">
+          <Key>
+            <PropertyRef Name="comment_id" />
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="comment_id" Type="Int32" Nullable="false" />
+          <Property Name="person_id" Type="Int32" Nullable="false" />
+          <Property Name="timestamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="read" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="comment" Relationship="Self.FK_comment_like_comment" FromRole="comment_like" ToRole="comment" />
+          <NavigationProperty Name="person" Relationship="Self.FK_comment_like_persons" FromRole="comment_like" ToRole="persons" />
+        </EntityType>
+        <EntityType Name="contact">
+          <Key>
+            <PropertyRef Name="contact_id" />
+          </Key>
+          <Property Name="contact_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="person_id" Type="Int32" Nullable="false" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="info" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="person" Relationship="Self.FK_contacts_persons" FromRole="contacts" ToRole="persons" />
+        </EntityType>
+        <EntityType Name="country">
+          <Key>
+            <PropertyRef Name="country_code" />
+          </Key>
+          <Property Name="country_code" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="country_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="addresses" Relationship="Self.FK_addresses_countries" FromRole="countries" ToRole="addresses" />
+        </EntityType>
+        <EntityType Name="friendlink">
+          <Key>
+            <PropertyRef Name="requester" />
+            <PropertyRef Name="requested" />
+          </Key>
+          <Property Name="requester" Type="Int32" Nullable="false" />
+          <Property Name="requested" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="timestamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="read" Type="Boolean" Nullable="false" />
+          <Property Name="approved" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="person" Relationship="Self.FK_friendlink_persons_requested" FromRole="friendlink" ToRole="persons" />
+          <NavigationProperty Name="person1" Relationship="Self.FK_friendlink_persons_requester" FromRole="friendlink" ToRole="persons" />
+        </EntityType>
+        <EntityType Name="like">
+          <Key>
+            <PropertyRef Name="picture_id" />
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="picture_id" Type="Int32" Nullable="false" />
+          <Property Name="person_id" Type="Int32" Nullable="false" />
+          <Property Name="timestamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="read" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="person" Relationship="Self.FK_like_persons" FromRole="like" ToRole="persons" />
+          <NavigationProperty Name="picture" Relationship="Self.FK_like_pictures" FromRole="like" ToRole="pictures" />
+        </EntityType>
+        <EntityType Name="message">
+          <Key>
+            <PropertyRef Name="message_id" />
+          </Key>
+          <Property Name="message_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sender" Type="Int32" Nullable="false" />
+          <Property Name="receiver" Type="Int32" Nullable="false" />
+          <Property Name="message1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="timestamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="read" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="person" Relationship="Self.FK_message_persons_receiver" FromRole="message" ToRole="persons" />
+          <NavigationProperty Name="person1" Relationship="Self.FK_message_persons_sender" FromRole="message" ToRole="persons" />
+        </EntityType>
+        <EntityType Name="person">
+          <Key>
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="person_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="notes" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="profile_pic" Type="Int32" />
+          <Property Name="privacy_setting" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="addresses" Relationship="Self.FK_addresses_persons" FromRole="persons" ToRole="addresses" />
+          <NavigationProperty Name="comments" Relationship="Self.FK_comment_persons" FromRole="persons" ToRole="comment" />
+          <NavigationProperty Name="comment_like" Relationship="Self.FK_comment_like_persons" FromRole="persons" ToRole="comment_like" />
+          <NavigationProperty Name="contacts" Relationship="Self.FK_contacts_persons" FromRole="persons" ToRole="contacts" />
+          <NavigationProperty Name="friendlinks" Relationship="Self.FK_friendlink_persons_requested" FromRole="persons" ToRole="friendlink" />
+          <NavigationProperty Name="friendlinks1" Relationship="Self.FK_friendlink_persons_requester" FromRole="persons" ToRole="friendlink" />
+          <NavigationProperty Name="likes" Relationship="Self.FK_like_persons" FromRole="persons" ToRole="like" />
+          <NavigationProperty Name="messages" Relationship="Self.FK_message_persons_receiver" FromRole="persons" ToRole="message" />
+          <NavigationProperty Name="messages1" Relationship="Self.FK_message_persons_sender" FromRole="persons" ToRole="message" />
+          <NavigationProperty Name="picture" Relationship="Self.FK_persons_pictures" FromRole="persons" ToRole="pictures" />
+          <NavigationProperty Name="pictures" Relationship="Self.FK_pictures_persons" FromRole="persons" ToRole="pictures" />
+          <NavigationProperty Name="users" Relationship="Self.FK_users_persons" FromRole="persons" ToRole="users" />
+        </EntityType>
+        <EntityType Name="picture">
+          <Key>
+            <PropertyRef Name="picture_id" />
+          </Key>
+          <Property Name="picture_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="person_id" Type="Int32" Nullable="false" />
+          <Property Name="caption" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="relative_path" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="time_info" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="location" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="comments" Relationship="Self.FK_comment_pictures" FromRole="pictures" ToRole="comment" />
+          <NavigationProperty Name="likes" Relationship="Self.FK_like_pictures" FromRole="pictures" ToRole="like" />
+          <NavigationProperty Name="persons" Relationship="Self.FK_persons_pictures" FromRole="pictures" ToRole="persons" />
+          <NavigationProperty Name="person" Relationship="Self.FK_pictures_persons" FromRole="pictures" ToRole="persons" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password_hash" Type="String" MaxLength="72" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="secret" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="person_id" Type="Int32" />
+          <NavigationProperty Name="person" Relationship="Self.FK_users_persons" FromRole="users" ToRole="persons" />
+        </EntityType>
+        <Association Name="FK_addresses_countries">
+          <End Role="countries" Type="Self.country" Multiplicity="1" />
+          <End Role="addresses" Type="Self.address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="countries">
+              <PropertyRef Name="country_code" />
+            </Principal>
+            <Dependent Role="addresses">
+              <PropertyRef Name="country_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_addresses_persons">
+          <End Role="persons" Type="Self.person" Multiplicity="1" />
+          <End Role="addresses" Type="Self.address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="addresses">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_comment_like_comment">
+          <End Role="comment" Type="Self.comment" Multiplicity="1" />
+          <End Role="comment_like" Type="Self.comment_like" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="comment">
+              <PropertyRef Name="comment_id" />
+            </Principal>
+            <Dependent Role="comment_like">
+              <PropertyRef Name="comment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_comment_persons">
+          <End Role="persons" Type="Self.person" Multiplicity="1" />
+          <End Role="comment" Type="Self.comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="comment">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_comment_pictures">
+          <End Role="pictures" Type="Self.picture" Multiplicity="1" />
+          <End Role="comment" Type="Self.comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pictures">
+              <PropertyRef Name="picture_id" />
+            </Principal>
+            <Dependent Role="comment">
+              <PropertyRef Name="picture_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_comment_like_persons">
+          <End Role="persons" Type="Self.person" Multiplicity="1" />
+          <End Role="comment_like" Type="Self.comment_like" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="comment_like">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_contacts_persons">
+          <End Role="persons" Type="Self.person" Multiplicity="1" />
+          <End Role="contacts" Type="Self.contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="contacts">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_friendlink_persons_requested">
+          <End Role="persons" Type="Self.person" Multiplicity="1" />
+          <End Role="friendlink" Type="Self.friendlink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="friendlink">
+              <PropertyRef Name="requested" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_friendlink_persons_requester">
+          <End Role="persons" Type="Self.person" Multiplicity="1" />
+          <End Role="friendlink" Type="Self.friendlink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="friendlink">
+              <PropertyRef Name="requester" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_like_persons">
+          <End Role="persons" Type="Self.person" Multiplicity="1" />
+          <End Role="like" Type="Self.like" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="like">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_like_pictures">
+          <End Role="pictures" Type="Self.picture" Multiplicity="1" />
+          <End Role="like" Type="Self.like" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pictures">
+              <PropertyRef Name="picture_id" />
+            </Principal>
+            <Dependent Role="like">
+              <PropertyRef Name="picture_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_message_persons_receiver">
+          <End Role="persons" Type="Self.person" Multiplicity="1" />
+          <End Role="message" Type="Self.message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="message">
+              <PropertyRef Name="receiver" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_message_persons_sender">
+          <End Role="persons" Type="Self.person" Multiplicity="1" />
+          <End Role="message" Type="Self.message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="message">
+              <PropertyRef Name="sender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_persons_pictures">
+          <End Role="pictures" Type="Self.picture" Multiplicity="0..1" />
+          <End Role="persons" Type="Self.person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pictures">
+              <PropertyRef Name="picture_id" />
+            </Principal>
+            <Dependent Role="persons">
+              <PropertyRef Name="profile_pic" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pictures_persons">
+          <End Role="persons" Type="Self.person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="pictures" Type="Self.picture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="pictures">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_users_persons">
+          <End Role="persons" Type="Self.person" Multiplicity="0..1" />
+          <End Role="users" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persons">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ClientsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="addresses" EntityType="Self.address" />
+          <EntitySet Name="comments" EntityType="Self.comment" />
+          <EntitySet Name="comment_like" EntityType="Self.comment_like" />
+          <EntitySet Name="contacts" EntityType="Self.contact" />
+          <EntitySet Name="countries" EntityType="Self.country" />
+          <EntitySet Name="friendlinks" EntityType="Self.friendlink" />
+          <EntitySet Name="likes" EntityType="Self.like" />
+          <EntitySet Name="messages" EntityType="Self.message" />
+          <EntitySet Name="persons" EntityType="Self.person" />
+          <EntitySet Name="pictures" EntityType="Self.picture" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <AssociationSet Name="FK_addresses_countries" Association="Self.FK_addresses_countries">
+            <End Role="countries" EntitySet="countries" />
+            <End Role="addresses" EntitySet="addresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_addresses_persons" Association="Self.FK_addresses_persons">
+            <End Role="persons" EntitySet="persons" />
+            <End Role="addresses" EntitySet="addresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_comment_like_comment" Association="Self.FK_comment_like_comment">
+            <End Role="comment" EntitySet="comments" />
+            <End Role="comment_like" EntitySet="comment_like" />
+          </AssociationSet>
+          <AssociationSet Name="FK_comment_persons" Association="Self.FK_comment_persons">
+            <End Role="persons" EntitySet="persons" />
+            <End Role="comment" EntitySet="comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_comment_pictures" Association="Self.FK_comment_pictures">
+            <End Role="pictures" EntitySet="pictures" />
+            <End Role="comment" EntitySet="comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_comment_like_persons" Association="Self.FK_comment_like_persons">
+            <End Role="persons" EntitySet="persons" />
+            <End Role="comment_like" EntitySet="comment_like" />
+          </AssociationSet>
+          <AssociationSet Name="FK_contacts_persons" Association="Self.FK_contacts_persons">
+            <End Role="persons" EntitySet="persons" />
+            <End Role="contacts" EntitySet="contacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_friendlink_persons_requested" Association="Self.FK_friendlink_persons_requested">
+            <End Role="persons" EntitySet="persons" />
+            <End Role="friendlink" EntitySet="friendlinks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_friendlink_persons_requester" Association="Self.FK_friendlink_persons_requester">
+            <End Role="persons" EntitySet="persons" />
+            <End Role="friendlink" EntitySet="friendlinks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_like_persons" Association="Self.FK_like_persons">
+            <End Role="persons" EntitySet="persons" />
+            <End Role="like" EntitySet="likes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_like_pictures" Association="Self.FK_like_pictures">
+            <End Role="pictures" EntitySet="pictures" />
+            <End Role="like" EntitySet="likes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_message_persons_receiver" Association="Self.FK_message_persons_receiver">
+            <End Role="persons" EntitySet="persons" />
+            <End Role="message" EntitySet="messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_message_persons_sender" Association="Self.FK_message_persons_sender">
+            <End Role="persons" EntitySet="persons" />
+            <End Role="message" EntitySet="messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_persons_pictures" Association="Self.FK_persons_pictures">
+            <End Role="pictures" EntitySet="pictures" />
+            <End Role="persons" EntitySet="persons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pictures_persons" Association="Self.FK_pictures_persons">
+            <End Role="persons" EntitySet="persons" />
+            <End Role="pictures" EntitySet="pictures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_users_persons" Association="Self.FK_users_persons">
+            <End Role="persons" EntitySet="persons" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ClientsModelStoreContainer" CdmEntityContainer="ClientsEntities">
+          <EntitySetMapping Name="addresses">
+            <EntityTypeMapping TypeName="ClientsModel.address">
+              <MappingFragment StoreEntitySet="addresses">
+                <ScalarProperty Name="address_id" ColumnName="address_id" />
+                <ScalarProperty Name="person_id" ColumnName="person_id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="street_address" ColumnName="street_address" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="province" ColumnName="province" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="country_code" ColumnName="country_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="comments">
+            <EntityTypeMapping TypeName="ClientsModel.comment">
+              <MappingFragment StoreEntitySet="comment">
+                <ScalarProperty Name="comment_id" ColumnName="comment_id" />
+                <ScalarProperty Name="picture_id" ColumnName="picture_id" />
+                <ScalarProperty Name="person_id" ColumnName="person_id" />
+                <ScalarProperty Name="comment1" ColumnName="comment" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="read" ColumnName="read" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="comment_like">
+            <EntityTypeMapping TypeName="ClientsModel.comment_like">
+              <MappingFragment StoreEntitySet="comment_like">
+                <ScalarProperty Name="comment_id" ColumnName="comment_id" />
+                <ScalarProperty Name="person_id" ColumnName="person_id" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="read" ColumnName="read" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="contacts">
+            <EntityTypeMapping TypeName="ClientsModel.contact">
+              <MappingFragment StoreEntitySet="contacts">
+                <ScalarProperty Name="contact_id" ColumnName="contact_id" />
+                <ScalarProperty Name="person_id" ColumnName="person_id" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="info" ColumnName="info" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="countries">
+            <EntityTypeMapping TypeName="ClientsModel.country">
+              <MappingFragment StoreEntitySet="countries">
+                <ScalarProperty Name="country_code" ColumnName="country_code" />
+                <ScalarProperty Name="country_name" ColumnName="country_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="friendlinks">
+            <EntityTypeMapping TypeName="ClientsModel.friendlink">
+              <MappingFragment StoreEntitySet="friendlink">
+                <ScalarProperty Name="requester" ColumnName="requester" />
+                <ScalarProperty Name="requested" ColumnName="requested" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="read" ColumnName="read" />
+                <ScalarProperty Name="approved" ColumnName="approved" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="likes">
+            <EntityTypeMapping TypeName="ClientsModel.like">
+              <MappingFragment StoreEntitySet="like">
+                <ScalarProperty Name="picture_id" ColumnName="picture_id" />
+                <ScalarProperty Name="person_id" ColumnName="person_id" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="read" ColumnName="read" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="messages">
+            <EntityTypeMapping TypeName="ClientsModel.message">
+              <MappingFragment StoreEntitySet="message">
+                <ScalarProperty Name="message_id" ColumnName="message_id" />
+                <ScalarProperty Name="sender" ColumnName="sender" />
+                <ScalarProperty Name="receiver" ColumnName="receiver" />
+                <ScalarProperty Name="message1" ColumnName="message" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="read" ColumnName="read" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="persons">
+            <EntityTypeMapping TypeName="ClientsModel.person">
+              <MappingFragment StoreEntitySet="persons">
+                <ScalarProperty Name="person_id" ColumnName="person_id" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="profile_pic" ColumnName="profile_pic" />
+                <ScalarProperty Name="privacy_setting" ColumnName="privacy_setting" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pictures">
+            <EntityTypeMapping TypeName="ClientsModel.picture">
+              <MappingFragment StoreEntitySet="pictures">
+                <ScalarProperty Name="picture_id" ColumnName="picture_id" />
+                <ScalarProperty Name="person_id" ColumnName="person_id" />
+                <ScalarProperty Name="caption" ColumnName="caption" />
+                <ScalarProperty Name="relative_path" ColumnName="relative_path" />
+                <ScalarProperty Name="time_info" ColumnName="time_info" />
+                <ScalarProperty Name="location" ColumnName="location" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="ClientsModel.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password_hash" ColumnName="password_hash" />
+                <ScalarProperty Name="secret" ColumnName="secret" />
+                <ScalarProperty Name="person_id" ColumnName="person_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

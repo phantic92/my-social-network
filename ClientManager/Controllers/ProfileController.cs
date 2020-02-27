@@ -248,16 +248,15 @@ namespace ClientManager.Controllers
 
             int receiverId = db.persons.SingleOrDefault(p => p.person_id == id).person_id;
 
-            IEnumerable<Models.message> receivedMessages = db.messages.Where(r => r.receiver == senderId)
-                .Where(s => s.sender == receiverId);
+            IEnumerable<Models.message> receivedMessages = db.messages.Where(r => r.receiver == senderId);
 
             foreach (var message in receivedMessages)
             {
-                message.read = true; 
+                message.read = true;
             }
+            db.SaveChanges();
 
-            return View(db.messages.Where(m => (m.sender == receiverId && m.receiver == senderId) ||
-                m.sender == senderId && m.receiver == receiverId));
+            return View(db.messages.Where(s => s.sender == senderId || s.receiver == receiverId));
         }
     }
 }

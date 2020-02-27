@@ -134,7 +134,7 @@ namespace ClientManager.Controllers
                 db.users.Add(newUser);
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Create", "Profile");
             }
             catch
             {

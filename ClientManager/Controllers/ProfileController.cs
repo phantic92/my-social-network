@@ -240,22 +240,22 @@ namespace ClientManager.Controllers
             }
         }
 
+        public ActionResult ListMessages(int id)
+        {
+            int userId = int.Parse(Session["user_id"].ToString());
+            int senderId = (int)db.users.SingleOrDefault(u => u.user_id == userId).person_id;
 
-        //public ActionResult ListMessages(int id)
-        //{
-        //    int userId = int.Parse(Session["user_id"].ToString());
-        //    int senderId = (int)db.users.SingleOrDefault(u => u.user_id == userId).person_id;
+            int receiverId = db.persons.SingleOrDefault(p => p.person_id == id).person_id;
 
-        //    int receiverId = db.persons.SingleOrDefault(p => p.person_id == id).person_id;
+            IEnumerable<Models.message> receivedMessages = db.messages.Where(r => r.receiver == senderId);
 
-        //    Models.message receivedMessages = db.messages.Where(r => r.receiver == senderId && senderId == receiverId);
+            foreach (var message in receivedMessages)
+            {
+                message.read = true;
+            }
+            db.SaveChanges();
 
-        //    foreach (var message in receivedMessages)
-        //    {
-
-        //    }
-
-        //    return View(db.messages.Where((s => s.sender == senderId) || (r => r.receiver == receiverId)));
-        //}
+            return View(db.messages.Where(s => s.sender == senderId || s.receiver == receiverId));
+        }
     }
 }

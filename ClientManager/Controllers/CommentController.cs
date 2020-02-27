@@ -8,10 +8,14 @@ namespace ClientManager.Controllers
 {
     public class CommentController : Controller
     {
+        Models.ClientsEntities db = new Models.ClientsEntities(); 
+
         // GET: Comment
-        public ActionResult Index()
+        public ActionResult Index(int id) //picture_id
         {
-            return View();
+            Models.picture pictureComments = db.pictures.SingleOrDefault(p => p.picture_id == id);
+
+            return View(pictureComments);
         }
 
         // GET: Comment/Details/5

@@ -1,0 +1,24 @@
+﻿@model ClientManager.Models.picture
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>
+    @Html.DisplayFor(model => model.person.first_name)
+</h2>
+
+<h3>
+    @Html.DisplayFor(model => model.caption)
+</h3>
+
+<h2>
+    <img src="/Images/@Html.DisplayFor(model => model.relative_path)" style="max-height:100px; max-width:100px" />
+</h2>
+
+<p>
+    @Html.ActionLink("Create New Comment", "Create", new { id = Model.picture_id })
+</p>
+
+@Html.Partial("CommentsList", Model.comments)
+@Html.ActionLink("Back to Profile", "index", "Profile")

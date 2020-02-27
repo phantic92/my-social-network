@@ -32,7 +32,8 @@
             @Html.DisplayFor(modelItem => item.location)
         </td>
         <td>
-            @Html.ActionLink("Select as Profile Picture", "ChooseProfilePic", new { picture_id = item.picture_id, person_id = item.person_id}, null) |
+            @Html.ActionLink("Select as Profile Picture", "ChooseProfilePic", new { picture_id = item.picture_id, person_id = item.person_id }, null) |
+            @Html.ActionLink("View Comments", "Index", "Comment", new { id = item.picture_id }, null) |
             @Html.ActionLink("Edit", "Edit", new { id = item.picture_id }) |
             @Html.ActionLink("Details", "Details", new { id = item.picture_id }) |
             @Html.ActionLink("Delete", "Delete", new { id = item.picture_id })

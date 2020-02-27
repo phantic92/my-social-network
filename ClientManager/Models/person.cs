@@ -37,6 +37,7 @@ namespace ClientManager.Models
         public string gender { get; set; }
         public Nullable<int> profile_pic { get; set; }
         public bool privacy_setting { get; set; }
+        public int user_id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<address> addresses { get; set; }

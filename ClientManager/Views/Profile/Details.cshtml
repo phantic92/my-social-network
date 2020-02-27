@@ -2,8 +2,6 @@
 
 @{
     ViewBag.Title = "Details";
-    ClientManager.Models.contact contact = ViewBag.contact;
-    ClientManager.Models.address address = ViewBag.address;
 }
 
 <h2>Details</h2>
@@ -45,128 +43,24 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.profile_pic)
+            @Html.DisplayNameFor(model => model.privacy_setting)
         </dt>
 
         <dd>
-            <img src="/Images/@Html.DisplayFor(model => model.picture.relative_path)" style="max-height:100px; max-width:100px" />
+            @Html.DisplayFor(model => model.privacy_setting)
         </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.picture.caption)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.picture.caption)
+        </dd>
+
     </dl>
 </div>
-
-<h2>Contacts</h2>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => contact.type)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => contact.info)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model.contacts)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.info)
-            </td>
-        </tr>
-    }
-
-</table>
-
-<h2>Addresses</h2>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => address.description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => address.street_address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => address.city)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => address.province)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => address.zipcode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => address.country.country_name)
-        </th>
-        <th></th>
-    </tr>
-    @foreach (var item in Model.addresses)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.street_address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.city)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.province)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.zipcode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.country.country_name)
-            </td>
-        </tr>
-    }
-
-</table>
-
-<h2>Pictures</h2>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.picture.caption)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.picture.relative_path)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.picture.time_info)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.picture.location)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model.pictures)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.caption)
-            </td>
-            <td>
-                <img src="/Images/@Html.DisplayFor(modelItem => item.relative_path)" style="max-height:100px; max-width:100px" />
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.time_info)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.location)
-            </td>
-        </tr>
-    }
-</table>
-
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.person_id }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.person_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

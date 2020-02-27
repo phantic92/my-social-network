@@ -4,18 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f7c0f8d07d644aecb7377b2620cb5f9a" Name="Diagram1">
-        <EntityTypeShape EntityType="ClientsModel.address" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ClientsModel.comment" Width="1.5" PointX="5.25" PointY="19.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ClientsModel.comment_like" Width="1.5" PointX="7.5" PointY="16.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ClientsModel.contact" Width="1.5" PointX="3" PointY="14.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ClientsModel.country" Width="1.5" PointX="0.75" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="ClientsModel.friendlink" Width="1.5" PointX="3" PointY="17.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ClientsModel.like" Width="1.5" PointX="8.25" PointY="20" IsExpanded="true" />
-        <EntityTypeShape EntityType="ClientsModel.message" Width="1.5" PointX="3" PointY="23.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ClientsModel.person" Width="1.5" PointX="0.75" PointY="12.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ClientsModel.picture" Width="1.5" PointX="3" PointY="26.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ClientsModel.user" Width="1.5" PointX="3" PointY="30.625" IsExpanded="true" />
+      <Diagram DiagramId="deac0e467b9048169cfdbcb1d805ebd8" Name="Diagram1">
+        <EntityTypeShape EntityType="ClientsModel.address" Width="1.5" PointX="5.25" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClientsModel.comment" Width="1.5" PointX="7.5" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClientsModel.comment_like" Width="1.5" PointX="9.75" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClientsModel.contact" Width="1.5" PointX="5.25" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClientsModel.country" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClientsModel.friendlink" Width="1.5" PointX="5.25" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClientsModel.like" Width="1.5" PointX="10.5" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClientsModel.message" Width="1.5" PointX="5.25" PointY="23.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClientsModel.person" Width="1.5" PointX="3" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClientsModel.picture" Width="1.5" PointX="5.25" PointY="26.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClientsModel.user" Width="1.5" PointX="0.75" PointY="12.25" IsExpanded="true" />
         <AssociationConnector Association="ClientsModel.FK_addresses_countries" ManuallyRouted="false" />
         <AssociationConnector Association="ClientsModel.FK_addresses_persons" ManuallyRouted="false" />
         <AssociationConnector Association="ClientsModel.FK_comment_like_comment" ManuallyRouted="false" />
@@ -30,8 +30,8 @@
         <AssociationConnector Association="ClientsModel.FK_message_persons_receiver" ManuallyRouted="false" />
         <AssociationConnector Association="ClientsModel.FK_message_persons_sender" ManuallyRouted="false" />
         <AssociationConnector Association="ClientsModel.FK_persons_pictures" ManuallyRouted="false" />
+        <AssociationConnector Association="ClientsModel.FK_persons_users" ManuallyRouted="false" />
         <AssociationConnector Association="ClientsModel.FK_pictures_persons" ManuallyRouted="false" />
-        <AssociationConnector Association="ClientsModel.FK_users_persons" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

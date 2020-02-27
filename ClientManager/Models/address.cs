@@ -15,13 +15,14 @@ namespace ClientManager.Models
     public partial class address
     {
         public int address_id { get; set; }
-        public int person_id { get; set; }
+        public int user_id { get; set; }
         public string description { get; set; }
         public string street_address { get; set; }
         public string city { get; set; }
         public string province { get; set; }
         public string zipcode { get; set; }
         public string country_code { get; set; }
+        public Nullable<int> person_id { get; set; }
     
         public virtual country country { get; set; }
         public virtual person person { get; set; }

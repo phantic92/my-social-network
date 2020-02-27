@@ -1,0 +1,49 @@
+﻿@model IEnumerable<ClientManager.Models.user>
+
+@{
+    ViewBag.Title = "Search";
+
+    ClientManager.Models.ClientsEntities db = new ClientManager.Models.ClientsEntities();
+    //int checkRequested = db.friendlinks.SingleOrDefault(r => r.requested == ).requested;
+    int userId = int.Parse(Session["user_id"].ToString());
+    int profileId = (int) db.users.SingleOrDefault(p => p.user_id == userId).person_id;
+}
+
+
+<h2>Search</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.person.profile_pic)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.username)
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        bool fRequestSent = db.friendlinks.SingleOrDefault(r => r.requester == profileId && r.requested == item.person_id) != null ? true : false;
+        <tr>
+            <td>
+                <img src="/Images/@Html.DisplayFor(modelItem => item.person.picture.relative_path)" style="max-height:100px; max-width:100px" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.username)
+            </td>
+            <td>
+                @if (!fRequestSent)
+                {
+                    @Html.ActionLink("Send Friend Request", "SendRequest", new { id = item.user_id })
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.person_id })
+            </td>
+            <td>
+                @Html.ActionLink("Create Message", "CreateMessage", new { id = item.person_id })
+            </td>
+        </tr>
+    }
+</table>

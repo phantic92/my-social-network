@@ -10,14 +10,13 @@
             <PropertyRef Name="address_id" />
           </Key>
           <Property Name="address_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="person_id" Type="int" Nullable="false" />
           <Property Name="description" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="street_address" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="city" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="province" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="zipcode" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="country_code" Type="char" MaxLength="2" Nullable="false" />
-          <Property Name="person_id" Type="int" />
         </EntityType>
         <EntityType Name="comment">
           <Key>
@@ -120,8 +119,6 @@
           <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="password_hash" Type="nvarchar" MaxLength="72" Nullable="false" />
-          <Property Name="secret" Type="nvarchar" MaxLength="16" />
-          <Property Name="person_id" Type="int" />
         </EntityType>
         <Association Name="FK_addresses_countries">
           <End Role="countries" Type="Self.countries" Multiplicity="1" />
@@ -136,7 +133,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_addresses_persons">
-          <End Role="persons" Type="Self.persons" Multiplicity="0..1" />
+          <End Role="persons" Type="Self.persons" Multiplicity="1" />
           <End Role="addresses" Type="Self.addresses" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="persons">
@@ -291,6 +288,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_persons_users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="persons" Type="Self.persons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="persons">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_pictures_persons">
           <End Role="persons" Type="Self.persons" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -301,18 +310,6 @@
               <PropertyRef Name="person_id" />
             </Principal>
             <Dependent Role="pictures">
-              <PropertyRef Name="person_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_users_persons">
-          <End Role="persons" Type="Self.persons" Multiplicity="0..1" />
-          <End Role="users" Type="Self.users" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="persons">
-              <PropertyRef Name="person_id" />
-            </Principal>
-            <Dependent Role="users">
               <PropertyRef Name="person_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -385,13 +382,13 @@
             <End Role="pictures" EntitySet="pictures" />
             <End Role="persons" EntitySet="persons" />
           </AssociationSet>
+          <AssociationSet Name="FK_persons_users" Association="Self.FK_persons_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="persons" EntitySet="persons" />
+          </AssociationSet>
           <AssociationSet Name="FK_pictures_persons" Association="Self.FK_pictures_persons">
             <End Role="persons" EntitySet="persons" />
             <End Role="pictures" EntitySet="pictures" />
-          </AssociationSet>
-          <AssociationSet Name="FK_users_persons" Association="Self.FK_users_persons">
-            <End Role="persons" EntitySet="persons" />
-            <End Role="users" EntitySet="users" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -404,14 +401,13 @@
             <PropertyRef Name="address_id" />
           </Key>
           <Property Name="address_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="person_id" Type="Int32" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="street_address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="province" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="zipcode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="country_code" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="person_id" Type="Int32" />
           <NavigationProperty Name="country" Relationship="Self.FK_addresses_countries" FromRole="addresses" ToRole="countries" />
           <NavigationProperty Name="person" Relationship="Self.FK_addresses_persons" FromRole="addresses" ToRole="persons" />
         </EntityType>
@@ -520,8 +516,8 @@
           <NavigationProperty Name="messages" Relationship="Self.FK_message_persons_receiver" FromRole="persons" ToRole="message" />
           <NavigationProperty Name="messages1" Relationship="Self.FK_message_persons_sender" FromRole="persons" ToRole="message" />
           <NavigationProperty Name="picture" Relationship="Self.FK_persons_pictures" FromRole="persons" ToRole="pictures" />
+          <NavigationProperty Name="user" Relationship="Self.FK_persons_users" FromRole="persons" ToRole="users" />
           <NavigationProperty Name="pictures" Relationship="Self.FK_pictures_persons" FromRole="persons" ToRole="pictures" />
-          <NavigationProperty Name="users" Relationship="Self.FK_users_persons" FromRole="persons" ToRole="users" />
         </EntityType>
         <EntityType Name="picture">
           <Key>
@@ -545,9 +541,7 @@
           <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="password_hash" Type="String" MaxLength="72" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="secret" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
-          <Property Name="person_id" Type="Int32" />
-          <NavigationProperty Name="person" Relationship="Self.FK_users_persons" FromRole="users" ToRole="persons" />
+          <NavigationProperty Name="persons" Relationship="Self.FK_persons_users" FromRole="users" ToRole="persons" />
         </EntityType>
         <Association Name="FK_addresses_countries">
           <End Role="countries" Type="Self.country" Multiplicity="1" />
@@ -562,7 +556,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_addresses_persons">
-          <End Role="persons" Type="Self.person" Multiplicity="0..1" />
+          <End Role="persons" Type="Self.person" Multiplicity="1" />
           <End Role="addresses" Type="Self.address" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="persons">
@@ -717,6 +711,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_persons_users">
+          <End Role="users" Type="Self.user" Multiplicity="1" />
+          <End Role="persons" Type="Self.person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="persons">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_pictures_persons">
           <End Role="persons" Type="Self.person" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -727,18 +733,6 @@
               <PropertyRef Name="person_id" />
             </Principal>
             <Dependent Role="pictures">
-              <PropertyRef Name="person_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_users_persons">
-          <End Role="persons" Type="Self.person" Multiplicity="0..1" />
-          <End Role="users" Type="Self.user" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="persons">
-              <PropertyRef Name="person_id" />
-            </Principal>
-            <Dependent Role="users">
               <PropertyRef Name="person_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -811,13 +805,13 @@
             <End Role="pictures" EntitySet="pictures" />
             <End Role="persons" EntitySet="persons" />
           </AssociationSet>
+          <AssociationSet Name="FK_persons_users" Association="Self.FK_persons_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="persons" EntitySet="persons" />
+          </AssociationSet>
           <AssociationSet Name="FK_pictures_persons" Association="Self.FK_pictures_persons">
             <End Role="persons" EntitySet="persons" />
             <End Role="pictures" EntitySet="pictures" />
-          </AssociationSet>
-          <AssociationSet Name="FK_users_persons" Association="Self.FK_users_persons">
-            <End Role="persons" EntitySet="persons" />
-            <End Role="users" EntitySet="users" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -830,14 +824,13 @@
             <EntityTypeMapping TypeName="ClientsModel.address">
               <MappingFragment StoreEntitySet="addresses">
                 <ScalarProperty Name="address_id" ColumnName="address_id" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="person_id" ColumnName="person_id" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="street_address" ColumnName="street_address" />
                 <ScalarProperty Name="city" ColumnName="city" />
                 <ScalarProperty Name="province" ColumnName="province" />
                 <ScalarProperty Name="zipcode" ColumnName="zipcode" />
                 <ScalarProperty Name="country_code" ColumnName="country_code" />
-                <ScalarProperty Name="person_id" ColumnName="person_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -947,8 +940,6 @@
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="password_hash" ColumnName="password_hash" />
-                <ScalarProperty Name="secret" ColumnName="secret" />
-                <ScalarProperty Name="person_id" ColumnName="person_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

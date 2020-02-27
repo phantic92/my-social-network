@@ -68,6 +68,8 @@ StyleCopReport.xml
 *.obj
 *.iobj
 *.pch
+*.mdf
+*.ldf
 *.pdb
 *.ipdb
 *.pgc

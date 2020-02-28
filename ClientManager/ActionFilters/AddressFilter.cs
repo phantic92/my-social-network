@@ -6,15 +6,20 @@ using System.Web.Mvc;
 
 namespace ClientManager.ActionFilters
 {
-    public class PersonFilter: ActionFilterAttribute
+    public class AddressFilter: ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (filterContext.HttpContext.Session["person_id"] == null)
+            var personId = 0;
+            if (filterContext.RouteData.Values["id"] != null)
+                personId = int.Parse(filterContext.RouteData.Values["id"].ToString());
+
+            if (personId != int.Parse(filterContext.HttpContext.Session["person_id"].ToString()))
             {
                 System.Web.Routing.RouteValueDictionary routeValues = new System.Web.Routing.RouteValueDictionary();
-                routeValues.Add("controller", "Profile");
+                routeValues.Add("controller", "Address");
                 routeValues.Add("action", "Index");
+                routeValues.Add("id", filterContext.HttpContext.Session["person_id"]);
 
                 filterContext.Result = new RedirectToRouteResult("Default", routeValues);
             }

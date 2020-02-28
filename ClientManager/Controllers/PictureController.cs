@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClientManager.ActionFilters;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,10 +8,12 @@ using System.Web.Mvc;
 
 namespace ClientManager.Controllers
 {
+  
     public class PictureController : Controller
     {
         Models.ClientsEntities db = new Models.ClientsEntities();
 
+        [PictureFilter]
         // GET: Picture
         public ActionResult Index(int id)
         {

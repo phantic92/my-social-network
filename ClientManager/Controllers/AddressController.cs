@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace ClientManager.Controllers
 {
-    [PersonFilter]
+    [AddressFilter]
     public class AddressController : Controller
     {
         Models.ClientsEntities db = new Models.ClientsEntities();

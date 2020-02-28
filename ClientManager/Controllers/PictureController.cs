@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClientManager.ActionFilters;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Web.Mvc;
 
 namespace ClientManager.Controllers
 {
+    [PictureFilter]
     public class PictureController : Controller
     {
         Models.ClientsEntities db = new Models.ClientsEntities();

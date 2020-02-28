@@ -282,6 +282,7 @@ namespace ClientManager.Controllers
             }
         }
 
+        [MessageFilter]
         public ActionResult ListMessages(int id)
         {
             int userId = int.Parse(Session["user_id"].ToString());

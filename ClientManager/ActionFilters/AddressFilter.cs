@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace ClientManager.ActionFilters
 {
-    public class PersonFilter: ActionFilterAttribute
+    public class AddressFilter: ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
@@ -21,8 +21,6 @@ namespace ClientManager.ActionFilters
 
                 filterContext.Result = new RedirectToRouteResult("Default", routeValues);
             }
-
-
         }
     }
 }

@@ -11,7 +11,7 @@ namespace ClientManager.Controllers
     public class AddressController : Controller
     {
         Models.ClientsEntities db = new Models.ClientsEntities();
-
+        
         // GET: Address
         public ActionResult Index(int id)
         {

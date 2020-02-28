@@ -35,6 +35,47 @@ namespace ClientManager.Controllers
             return View("search", result);
         }
 
+        public ActionResult FriendRequests(int id)
+        {
+            IQueryable<Models.friendlink> friendRequest = db.friendlinks.Where(f => f.requested == id);
+
+            return View(friendRequest);
+        }
+
+        public ActionResult ApproveFriend(int requesterId, int requestedId)
+        {
+            try
+            {
+                Models.friendlink theRequest = db.friendlinks.SingleOrDefault(f => f.person1.person_id == requestedId &&
+                                        f.person.person_id == requesterId);
+                theRequest.approved = true;
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        public ActionResult DeleteFriend(int requesterId, int requestedId)
+        {
+            try
+            {
+                Models.friendlink theRequest = db.friendlinks.SingleOrDefault(f => f.person1.person_id == requestedId &&
+                        f.person.person_id == requesterId);
+                db.friendlinks.Remove(theRequest);
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
         public ActionResult ModifyPassword()
         {
             return View();
@@ -187,7 +228,6 @@ namespace ClientManager.Controllers
 
                     requester = (int)requester.person_id,
                     requested = (int)theRequested.person_id,
-
                     status = getStatus.notes,
                     timestamp = DateTime.Now.ToString(),
                 };

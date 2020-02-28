@@ -41,6 +41,9 @@
                 @Html.ActionLink("Details", "Details", new { id = item.person_id })
             </td>
             <td>
+                @Html.ActionLink("View Pictures", "FriendIndex", "Picture", new { id = item.person_id }, null)
+            </td>
+            <td>
                 @Html.ActionLink("Create Message", "CreateMessage", new { id = item.person_id })
             </td>
         </tr>

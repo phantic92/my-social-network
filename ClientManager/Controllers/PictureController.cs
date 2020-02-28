@@ -165,5 +165,12 @@ namespace ClientManager.Controllers
                 return View();
             }
         }
+
+        public ActionResult FriendIndex(int id)
+        {
+            Models.person thePerson = db.persons.SingleOrDefault(p => p.person_id == id);
+
+            return View(thePerson);
+        }
     }
 }

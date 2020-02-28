@@ -250,6 +250,8 @@
     <Content Include="Views\Comment\Index.cshtml" />
     <Content Include="Views\Comment\CommentsList.cshtml" />
     <Content Include="Views\Comment\Create.cshtml" />
+    <Content Include="Views\Comment\Edit.cshtml" />
+    <Content Include="Views\Comment\Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -146,8 +146,10 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionFilters\PersonFilter.cs" />
+    <Compile Include="ActionFilters\AddressFilter.cs" />
     <Compile Include="ActionFilters\LoginFilter.cs" />
+    <Compile Include="ActionFilters\MessageFilter.cs" />
+    <Compile Include="ActionFilters\PictureFilter.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AddressController.cs" />
     <Compile Include="Controllers\Base32.cs" />
@@ -252,6 +254,7 @@
     <Content Include="Views\Comment\Create.cshtml" />
     <Content Include="Views\Comment\Edit.cshtml" />
     <Content Include="Views\Comment\Delete.cshtml" />
+    <Content Include="Views\Profile\FriendRequests.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

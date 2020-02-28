@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ClientManager.Models.friendlink>
+
+@{
+    ViewBag.Title = "FriendRequests";
+}
+
+<h2>FriendRequests</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.person1.first_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.approved)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.person1.first_name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.approved)
+    </td>
+    <td>
+        @if (!item.approved)
+        {
+            @Html.ActionLink("Approve | ", "ApproveFriend", new { requestedId = item.person1.person_id, requesterId = item.person.person_id })
+        }
+        @Html.ActionLink("Delete", "DeleteFriend", new { requestedId = item.person1.person_id, requesterId = item.person.person_id })
+
+    </td>
+</tr>
+}
+
+</table>

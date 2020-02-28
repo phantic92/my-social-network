@@ -19,7 +19,8 @@
     @Html.ActionLink("View Pictures", "Index", "Picture", new { id = Model.person_id }, null) |
     @Html.ActionLink("View Contacts", "Index", "Contact", new { id = Model.person_id}, null) |
     @Html.ActionLink("View Addresses", "Index", "Address", new { id = Model.person_id }, null) |
-    @Html.ActionLink("View Messages", "ListMessages", new { id = Model.person_id }, null)
+    @Html.ActionLink("View Messages", "ListMessages", new { id = Model.person_id }, null) |
+    @Html.ActionLink("View Friend Requests", "FriendRequests", new { id = Model.person_id}, null)
 </div>
 <div>
     <hr />

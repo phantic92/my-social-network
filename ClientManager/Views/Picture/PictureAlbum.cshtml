@@ -1,5 +1,11 @@
 ﻿@model IEnumerable<ClientManager.Models.picture>
 
+@{ 
+    ClientManager.Models.ClientsEntities db = new ClientManager.Models.ClientsEntities();
+    int userId = int.Parse(Session["user_id"].ToString());
+    int personId = db.persons.SingleOrDefault(p => p.user_id == userId).person_id;
+}
+
 <table class="table">
     <tr>
         <th>
@@ -18,6 +24,8 @@
     </tr>
 
 @foreach (var item in Model) {
+    ClientManager.Models.like checkLikes = db.likes.SingleOrDefault(p => p.person_id == personId
+        && p.picture_id == item.picture_id );
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.caption)
@@ -30,6 +38,17 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.location)
+        </td>
+        <td>
+            @if (checkLikes != null &&
+                (checkLikes.person_id == item.person_id && checkLikes.picture_id == item.picture_id))
+            {
+                @Html.ActionLink("UnLike", "UnLike", new { id = item.picture_id })
+            }
+            else
+            {
+                @Html.ActionLink("Like", "like", new { id = item.picture_id })
+            }
         </td>
         <td>
             @Html.ActionLink("Select as Profile Picture", "ChooseProfilePic", new { picture_id = item.picture_id, person_id = item.person_id }, null) |

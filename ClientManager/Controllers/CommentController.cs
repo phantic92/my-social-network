@@ -32,15 +32,17 @@ namespace ClientManager.Controllers
             {
                 // TODO: Add insert logic here
                 int userId = int.Parse(Session["user_id"].ToString());
-                Models.person theCommenter = db.persons.SingleOrDefault(u => u.user_id == userId);
+                Models.user theCommenter = db.users.SingleOrDefault(u => u.user_id == userId);
 
                 Models.comment newComment = new Models.comment()
                 {
                     picture_id = id,
-                    person_id = theCommenter.person_id,
-                    timestamp = collection["timestamp"],
-                    read = true 
+                    comment1 = collection["comment1"],
+                    person_id = (int)theCommenter.person_id,
+                    timestamp = DateTime.Now.ToString(),
                 };
+                db.comments.Add(newComment);
+                db.SaveChanges();
 
                 return RedirectToAction("Index", new { id = id });
             }

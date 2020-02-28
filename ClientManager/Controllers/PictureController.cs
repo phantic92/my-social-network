@@ -123,20 +123,10 @@ namespace ClientManager.Controllers
                     path = Path.Combine(path, filename);
                     newPicture.SaveAs(path);
 
-                    
                     thePic.caption = collection["caption"];
                     thePic.time_info = collection["time_info"];
                     thePic.location = collection["location"];
                     thePic.relative_path = filename;
-
-                    //Models.picture newPic = new Models.picture()
-                    //{
-                    //    caption = collection["caption"],
-                    //    time_info = collection["time_info"],
-                    //    location = collection["location"],
-                    //    relative_path = filename,
-                    //    person_id = id,
-                    //};
 
                     db.SaveChanges();
                 }

@@ -249,6 +249,7 @@
     <Content Include="Views\Profile\ListMessages.cshtml" />
     <Content Include="Views\Comment\Index.cshtml" />
     <Content Include="Views\Comment\CommentsList.cshtml" />
+    <Content Include="Views\Comment\Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -18,12 +18,6 @@ namespace ClientManager.Controllers
             return View(pictureComments);
         }
 
-        // GET: Comment/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         // GET: Comment/Create
         public ActionResult Create()
         {
@@ -32,13 +26,23 @@ namespace ClientManager.Controllers
 
         // POST: Comment/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(int id, FormCollection collection)
         {
             try
             {
                 // TODO: Add insert logic here
+                int userId = int.Parse(Session["user_id"].ToString());
+                Models.person theCommenter = db.persons.SingleOrDefault(u => u.user_id == userId);
 
-                return RedirectToAction("Index");
+                Models.comment newComment = new Models.comment()
+                {
+                    picture_id = id,
+                    person_id = theCommenter.person_id,
+                    timestamp = collection["timestamp"],
+                    read = true 
+                };
+
+                return RedirectToAction("Index", new { id = id });
             }
             catch
             {

@@ -19,13 +19,6 @@ namespace ClientManager.Controllers
             return View(thePerson);
         }
 
-        public ActionResult FriendIndex(int id)
-        {
-            Models.person thePerson = db.persons.SingleOrDefault(p => p.person_id == id);
-
-            return View(thePerson);
-        }
-
         public ActionResult ChooseProfilePic(int picture_id, int person_id) // person_id
         {
             try
@@ -180,9 +173,7 @@ namespace ClientManager.Controllers
                 // TODO: Add delete logic here
                 int userId = int.Parse(Session["user_id"].ToString());
                 int personId = (int) db.users.SingleOrDefault(u => u.user_id == userId).person_id;
-                //Models.picture myLikedPictures = db.pictures.SingleOrDefault(p => p.person_id == personId);
-
-                bool friendPicture = db.pictures.SingleOrDefault(p => p.person_id == personId && p.picture_id == id) != null ? true : false;
+                Models.picture theLikedPicture = db.pictures.SingleOrDefault(p => p.picture_id == id);
 
                 Models.like likedPicture = new Models.like
                 {
@@ -195,12 +186,7 @@ namespace ClientManager.Controllers
                 db.likes.Add(likedPicture);
                 db.SaveChanges();
 
-                var pictures_personId =  db.likes.SingleOrDefault(p => p.picture_id == id);
-
-                if (!friendPicture)
-                    return RedirectToAction("Index", new { id = personId });
-                else
-                    return RedirectToAction("FriendIndex", new { id = personId });
+                return RedirectToAction("Index", new { id = theLikedPicture.person_id });
             }
             catch
             {
@@ -216,18 +202,14 @@ namespace ClientManager.Controllers
                 // TODO: Add delete logic here
                 int userId = int.Parse(Session["user_id"].ToString());
                 int personId = (int)db.users.SingleOrDefault(u => u.user_id == userId).person_id;
+                Models.picture theLikedPicture = db.pictures.SingleOrDefault(p => p.picture_id == id);
 
                 Models.like likedPicture = db.likes.SingleOrDefault(p => p.picture_id == id);
 
                 db.likes.Remove(likedPicture);
                 db.SaveChanges();
 
-                var pictures_personId = db.pictures.SingleOrDefault(p => p.picture_id == id);
-
-                if (personId == pictures_personId.person_id)
-                    return RedirectToAction("Index", new { id = personId });
-                else
-                    return RedirectToAction("FriendIndex", new { id = personId });
+                return RedirectToAction("Index", new { id = theLikedPicture.person_id});
             }
             catch
             {

@@ -3,7 +3,7 @@
 @{ 
     ClientManager.Models.ClientsEntities db = new ClientManager.Models.ClientsEntities();
     int userId = int.Parse(Session["user_id"].ToString());
-    int personId = db.persons.SingleOrDefault(p => p.user_id == userId).person_id;
+    int personId = (int) db.users.SingleOrDefault(p => p.user_id == userId).person_id;
 }
 
 <table class="table">
@@ -25,7 +25,12 @@
 
 @foreach (var item in Model) {
     ClientManager.Models.like checkLikes = db.likes.SingleOrDefault(p => p.person_id == personId
-        && p.picture_id == item.picture_id );
+        && p.picture_id == item.picture_id);
+
+    bool checkLike = db.likes.SingleOrDefault(p => p.person_id == personId && p.picture_id == item.picture_id) != null ? true : false;
+
+    ClientManager.Models.picture checkProfile = db.pictures.SingleOrDefault(p => p.person_id == personId
+        && p.picture_id == item.picture_id);
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.caption)
@@ -40,8 +45,7 @@
             @Html.DisplayFor(modelItem => item.location)
         </td>
         <td>
-            @if (checkLikes != null &&
-                (checkLikes.person_id == item.person_id && checkLikes.picture_id == item.picture_id))
+            @if (checkLike)
             {
                 @Html.ActionLink("UnLike", "UnLike", new { id = item.picture_id })
             }
@@ -51,11 +55,16 @@
             }
         </td>
         <td>
-            @Html.ActionLink("Select as Profile Picture", "ChooseProfilePic", new { picture_id = item.picture_id, person_id = item.person_id }, null) |
-            @Html.ActionLink("View Comments", "Index", "Comment", new { id = item.picture_id }, null) |
-            @Html.ActionLink("Edit", "Edit", new { id = item.picture_id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.picture_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.picture_id })
+            @Html.ActionLink("View Comments", "Index", "Comment", new { id = item.picture_id }, null)
+
+            @if (checkProfile != null &&
+                (checkProfile.person_id == item.person_id && checkProfile.picture_id == item.picture_id))
+            {
+                @Html.ActionLink("| Select as Profile Picture", "ChooseProfilePic", new { picture_id = item.picture_id, person_id = item.person_id }, null) 
+                @Html.ActionLink(" | Edit", "Edit", new { id = item.picture_id }) 
+                @Html.ActionLink(" | Details", "Details", new { id = item.picture_id }) 
+                @Html.ActionLink(" | Delete", "Delete", new { id = item.picture_id })
+            }
         </td>
     </tr>
 }

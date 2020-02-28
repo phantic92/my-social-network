@@ -91,6 +91,7 @@ namespace ClientManager.Controllers
                 newPerson.privacy_setting = collection["privacy_setting"] != null;
                 newPerson.gender = collection["gender"];
                 theUser.person_id = newPerson.person_id;
+                newPerson.user_id = userId;
 
                 db.persons.Add(newPerson);
                 db.SaveChanges();

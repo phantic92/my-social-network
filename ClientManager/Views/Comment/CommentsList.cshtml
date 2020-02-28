@@ -1,8 +1,9 @@
 ﻿@model IEnumerable<ClientManager.Models.comment>
 
-@{ 
+@{
     ClientManager.Models.ClientsEntities db = new ClientManager.Models.ClientsEntities();
     int userId = int.Parse(Session["user_id"].ToString());
+    int personId = db.persons.SingleOrDefault(p => p.user_id == userId).person_id;
 }
 
 <table class="table">
@@ -18,27 +19,29 @@
         </th>
         <th></th>
     </tr>
-@foreach (var item in Model)
-{
-    bool isTheUser = db.users.SingleOrDefault(u => u.person_id == item.person_id) != null ? true : false;
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.comment1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.timestamp)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.read)
-        </td>
-        <td>
-            @if (isTheUser)
-            {
-                @Html.ActionLink("Edit ", "Edit", new { id = item.comment_id }) 
-                @Html.ActionLink("| Delete", "Delete", new { id = item.comment_id})
-            }
-
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        ClientManager.Models.user currentUser = db.users.SingleOrDefault(u => u.person_id == item.person_id);
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => currentUser.username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.comment1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.timestamp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.read)
+            </td>
+            <td>
+                @if (personId == item.person_id)
+                {
+                    @Html.ActionLink("Edit ", "Edit", new { id = item.comment_id })
+                    @Html.ActionLink("| Delete", "Delete", new { id = item.comment_id })
+                }
+            </td>
+        </tr>
+    }
 </table>

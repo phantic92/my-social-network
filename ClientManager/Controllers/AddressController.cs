@@ -7,11 +7,11 @@ using System.Web.Mvc;
 
 namespace ClientManager.Controllers
 {
-    [AddressFilter]
     public class AddressController : Controller
     {
         Models.ClientsEntities db = new Models.ClientsEntities();
-        
+
+        [AddressFilter]
         // GET: Address
         public ActionResult Index(int id)
         {

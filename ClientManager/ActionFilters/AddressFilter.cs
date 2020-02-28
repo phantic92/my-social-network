@@ -10,7 +10,9 @@ namespace ClientManager.ActionFilters
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var personId = int.Parse(filterContext.RouteData.Values["id"].ToString());
+            var personId = 0;
+            if (filterContext.RouteData.Values["id"] != null)
+                personId = int.Parse(filterContext.RouteData.Values["id"].ToString());
 
             if (personId != int.Parse(filterContext.HttpContext.Session["person_id"].ToString()))
             {

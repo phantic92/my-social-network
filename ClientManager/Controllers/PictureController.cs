@@ -8,11 +8,12 @@ using System.Web.Mvc;
 
 namespace ClientManager.Controllers
 {
-    [PictureFilter]
+  
     public class PictureController : Controller
     {
         Models.ClientsEntities db = new Models.ClientsEntities();
 
+        [PictureFilter]
         // GET: Picture
         public ActionResult Index(int id)
         {

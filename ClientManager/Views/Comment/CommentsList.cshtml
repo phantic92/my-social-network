@@ -1,5 +1,10 @@
 ﻿@model IEnumerable<ClientManager.Models.comment>
 
+@{ 
+    ClientManager.Models.ClientsEntities db = new ClientManager.Models.ClientsEntities();
+    int userId = int.Parse(Session["user_id"].ToString());
+}
+
 <table class="table">
     <tr>
         <th>
@@ -13,8 +18,9 @@
         </th>
         <th></th>
     </tr>
-
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
+    bool isTheUser = db.users.SingleOrDefault(u => u.person_id == item.person_id) != null ? true : false;
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.comment1)
@@ -26,9 +32,12 @@
             @Html.DisplayFor(modelItem => item.read)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.comment_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.comment_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.comment_id })
+            @if (isTheUser)
+            {
+                @Html.ActionLink("Edit ", "Edit", new { id = item.comment_id }) 
+                @Html.ActionLink("| Delete", "Delete", new { id = item.comment_id})
+            }
+
         </td>
     </tr>
 }

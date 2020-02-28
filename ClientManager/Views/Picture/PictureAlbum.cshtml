@@ -24,8 +24,6 @@
     </tr>
 
 @foreach (var item in Model) {
-    ClientManager.Models.like checkLikes = db.likes.SingleOrDefault(p => p.person_id == personId
-        && p.picture_id == item.picture_id);
 
     bool checkLike = db.likes.SingleOrDefault(p => p.person_id == personId && p.picture_id == item.picture_id) != null ? true : false;
 

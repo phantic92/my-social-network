@@ -108,5 +108,57 @@ namespace ClientManager.Controllers
                 return View();
             }
         }
+
+        public ActionResult Like(int id)
+        {
+            try
+            {
+                // TODO: Add delete logic here
+                int userId = int.Parse(Session["user_id"].ToString());
+                int personId = (int)db.users.SingleOrDefault(u => u.user_id == userId).person_id;
+                Models.comment theLikedComment = db.comments.SingleOrDefault(p => p.comment_id == id);
+
+                Models.comment_like likedComment = new Models.comment_like
+                {
+                    comment_id = id,
+                    person_id = personId,
+
+                    timestamp = DateTime.Now.ToString(),
+                };
+
+                db.comment_like.Add(likedComment);
+                db.SaveChanges();
+
+                return RedirectToAction("Index", new { id = theLikedComment.picture_id});
+            }
+            catch
+            {
+                db.SaveChanges();
+                return View();
+            }
+        }
+
+        public ActionResult UnLike(int id)
+        {
+            try
+            {
+                // TODO: Add delete logic here
+                int userId = int.Parse(Session["user_id"].ToString());
+                int personId = (int)db.users.SingleOrDefault(u => u.user_id == userId).person_id;
+                Models.comment theLikedComment = db.comments.SingleOrDefault(p => p.comment_id == id);
+
+                Models.comment_like likedComment = db.comment_like.SingleOrDefault(p => p.comment_id == id);
+
+                db.comment_like.Remove(likedComment);
+                db.SaveChanges();
+
+                return RedirectToAction("Index", new { id = theLikedComment.picture_id });
+            }
+            catch
+            {
+                db.SaveChanges();
+                return View();
+            }
+        }
     }
 }

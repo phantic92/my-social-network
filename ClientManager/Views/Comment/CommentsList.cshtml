@@ -21,7 +21,10 @@
     </tr>
     @foreach (var item in Model)
     {
+        // Display proper username 
         ClientManager.Models.user currentUser = db.users.SingleOrDefault(u => u.person_id == item.person_id);
+
+        bool checkLike = db.comment_like.SingleOrDefault(p => p.person_id == personId && p.comment_id == item.comment_id) != null ? true : false;
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => currentUser.username)
@@ -34,6 +37,16 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.read)
+            </td>
+            <td>
+                @if (checkLike)
+                {
+                    @Html.ActionLink("UnLike", "UnLike", new { id = item.comment_id })
+                }
+                else
+                {
+                    @Html.ActionLink("Like", "like", new { id = item.comment_id })
+                }
             </td>
             <td>
                 @if (personId == item.person_id)

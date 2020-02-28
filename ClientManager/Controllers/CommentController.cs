@@ -65,13 +65,13 @@ namespace ClientManager.Controllers
         {
             try
             {
-                // TODO: Add update logic here
-                Models.comment theComment = new Models.comment
-                {
-                    picture_id = id,
-                    comment1 = collection["comment1"],
-                    timestamp = DateTime.Now.ToString()
-                };
+                int UserId = int.Parse(Session["user_id"].ToString());
+                Models.comment theComment = db.comments.SingleOrDefault(c => c.comment_id == id);
+
+                // TODO: Add update logic 
+                theComment.comment1 = collection["comment1"];
+                theComment.timestamp = DateTime.Now.ToString();
+
                 db.SaveChanges();
 
                 return RedirectToAction("Index", new { id = theComment.picture_id});

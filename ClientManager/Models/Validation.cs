@@ -37,6 +37,42 @@ namespace ClientManager.Models
         //empty class here, we just wanted to add the annotation above
     }
 
+    [MetadataType(typeof(users_Validation))]
+    public partial class user
+    {
+        //empty class here, we just wanted to add the annotation above
+    }
+
+    [MetadataType(typeof(messages_Validation))]
+    public partial class message
+    {
+        //empty class here, we just wanted to add the annotation above
+    }
+
+    [MetadataType(typeof(friendlinks_Validation))]
+    public partial class friendlink
+    {
+        //empty class here, we just wanted to add the annotation above
+    }
+
+    [MetadataType(typeof(likes_Validation))]
+    public partial class like
+    {
+        //empty class here, we just wanted to add the annotation above
+    }
+
+    [MetadataType(typeof(comments_Validation))]
+    public partial class comment
+    {
+        //empty class here, we just wanted to add the annotation above
+    }
+
+    [MetadataType(typeof(comment_likes_Validation))]
+    public partial class comment_like
+    {
+        //empty class here, we just wanted to add the annotation above
+    }
+
     public class persons_Validation
     {
         [Display(Name = "First name")]
@@ -102,5 +138,73 @@ namespace ClientManager.Models
     {
         [Display(Name = "Country")]
         public string country_name;
+    }
+
+    public class users_Validation
+    {
+        [Display(Name = "Username")]
+        public string username;
+
+        [Display(Name = "Password")]
+        public string password_hash;
+    }
+
+    public class messages_Validation
+    {
+        [Display(Name = "Message")]
+        public string message1;
+
+        [Display(Name = "Received")]
+        public string receiver;
+
+        [Display(Name = "Sent By")]
+        public string sender;
+
+        [Display(Name = "Time")]
+        public string timestamp;
+
+        [Display(Name = "Read")]
+        public string read;
+    }
+    public class friendlinks_Validation
+    {
+        [Display(Name = "Status")]
+        public string status;
+
+        [Display(Name = "Time")]
+        public string timestamp;
+
+        [Display(Name = "Read")]
+        public string read;
+
+        [Display(Name = "Approved")]
+        public string approved;
+    }
+    public class likes_Validation
+    {
+        [Display(Name = "Time")]
+        public string timestamp;
+
+        [Display(Name = "Read")]
+        public string read;
+    }
+    public class comments_Validation
+    {
+        [Display(Name = "Comment")]
+        public string comment1;
+
+        [Display(Name = "Time")]
+        public string timestamp;
+
+        [Display(Name = "Read")]
+        public string read;
+    }
+    public class comment_likes_Validation
+    {
+        [Display(Name = "Time")]
+        public string timestamp;
+
+        [Display(Name = "Read")]
+        public string read;
     }
 }

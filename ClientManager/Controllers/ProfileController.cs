@@ -85,7 +85,6 @@ namespace ClientManager.Controllers
                 Models.person newPerson = new Models.person();
                 Models.user theUser = db.users.SingleOrDefault(u => u.user_id == userId);
 
-                Session["person_id"] = newPerson.person_id;
                 newPerson.first_name = collection["first_name"];
                 newPerson.last_name = collection["last_name"];
                 newPerson.notes = collection["notes"];
@@ -95,6 +94,7 @@ namespace ClientManager.Controllers
 
                 db.persons.Add(newPerson);
                 db.SaveChanges();
+                Session["person_id"] = newPerson.person_id;
 
                 return RedirectToAction("Index");
             }

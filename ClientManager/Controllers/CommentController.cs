@@ -55,7 +55,8 @@ namespace ClientManager.Controllers
         // GET: Comment/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Models.comment theComment = db.comments.SingleOrDefault(c => c.comment_id == id);
+            return View(theComment);
         }
 
         // POST: Comment/Edit/5
@@ -65,8 +66,15 @@ namespace ClientManager.Controllers
             try
             {
                 // TODO: Add update logic here
+                Models.comment theComment = new Models.comment
+                {
+                    picture_id = id,
+                    comment1 = collection["comment1"],
+                    timestamp = DateTime.Now.ToString()
+                };
+                db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = theComment.picture_id});
             }
             catch
             {
@@ -77,7 +85,9 @@ namespace ClientManager.Controllers
         // GET: Comment/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            Models.comment theComment = db.comments.SingleOrDefault(c => c.comment_id == id);
+
+            return View(theComment);
         }
 
         // POST: Comment/Delete/5
@@ -87,8 +97,11 @@ namespace ClientManager.Controllers
             try
             {
                 // TODO: Add delete logic here
+                Models.comment theComment = db.comments.SingleOrDefault(c => c.comment_id == id);
+                db.comments.Remove(theComment);
+                db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = theComment.picture_id});
             }
             catch
             {

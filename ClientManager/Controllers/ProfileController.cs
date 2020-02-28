@@ -22,6 +22,7 @@ namespace ClientManager.Controllers
             Models.user theUser = db.users.SingleOrDefault(u => u.user_id == UserId);
             Models.person thePerson = db.persons.SingleOrDefault(p => p.person_id == theUser.person_id);
             ViewBag.username = db.users.SingleOrDefault(u => u.user_id == UserId);
+            Session["person_id"] = thePerson.person_id;
 
             return View(thePerson);
         }

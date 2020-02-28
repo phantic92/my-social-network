@@ -13,7 +13,6 @@ namespace ClientManager.Controllers
     {
         Models.ClientsEntities db = new Models.ClientsEntities();
 
-        [PictureFilter]
         // GET: Picture
         public ActionResult Index(int id)
         {

@@ -48,6 +48,7 @@ namespace ClientManager.Controllers
             return View(thePic);
         }
 
+        [PictureFilter]
         // GET: Picture/Create
         public ActionResult Create(int id)
         {
@@ -57,6 +58,7 @@ namespace ClientManager.Controllers
         }
 
         // POST: Picture/Create
+        [PictureFilter]
         [HttpPost]
         public ActionResult Create(int id,FormCollection collection, HttpPostedFileBase newPicture)
         {
@@ -206,7 +208,7 @@ namespace ClientManager.Controllers
                 int personId = (int)db.users.SingleOrDefault(u => u.user_id == userId).person_id;
                 Models.picture theLikedPicture = db.pictures.SingleOrDefault(p => p.picture_id == id);
 
-                Models.like likedPicture = db.likes.SingleOrDefault(p => p.picture_id == id);
+                Models.like likedPicture = db.likes.SingleOrDefault(p => p.picture_id == id && p.person_id == personId);
 
                 db.likes.Remove(likedPicture);
                 db.SaveChanges();

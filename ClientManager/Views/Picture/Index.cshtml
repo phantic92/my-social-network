@@ -2,6 +2,11 @@
 
 @{
     ViewBag.Title = "Index";
+    ClientManager.Models.ClientsEntities db = new ClientManager.Models.ClientsEntities();
+    int userId = int.Parse(Session["user_id"].ToString());
+    int personId = (int)db.users.SingleOrDefault(p => p.user_id == userId).person_id;
+
+    var checkProfile = db.persons.SingleOrDefault(p => p.person_id == personId) != null ? true : false;
 }
 
 <h2>

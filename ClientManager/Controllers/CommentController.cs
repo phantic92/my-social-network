@@ -87,10 +87,7 @@ namespace ClientManager.Controllers
         {
             Models.comment theComment = db.comments.SingleOrDefault(c => c.comment_id == id);
 
-            db.comments.Remove(theComment);
-            db.SaveChanges();
-
-            return View();
+            return View(theComment);
         }
 
         // POST: Comment/Delete/5
@@ -100,8 +97,11 @@ namespace ClientManager.Controllers
             try
             {
                 // TODO: Add delete logic here
+                Models.comment theComment = db.comments.SingleOrDefault(c => c.comment_id == id);
+                db.comments.Remove(theComment);
+                db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = theComment.picture_id});
             }
             catch
             {
